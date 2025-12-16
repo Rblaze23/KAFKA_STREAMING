@@ -3,13 +3,13 @@ import time
 from kafka import KafkaProducer
 
 # Configuration
-# Matches the advertised listener in docker-compose.yml
-KAFKA_BROKER = 'localhost:9093'
+KAFKA_BROKER = 'localhost:9093' # Matches the advertised listener in docker-compose.yml
 TOPIC_NAME = 'transactions-csv'
-CLEAN_DATA_FILE = 'csv_lab/data/transactions.csv'
-DIRTY_DATA_FILE = 'csv_lab/data/transactions_dirty.csv'
+CLEAN_DATA_FILE = 'transaction.csv'
+DIRTY_DATA_FILE = 'transaction_dirty.csv'
 # Choose which file to stream based on the phase
-DATA_FILE = CLEAN_DATA_FILE  
+DATA_FILE = CLEAN_DATA_FILE # Change to DIRTY_DATA_FILE for Phase 2
+
 producer = KafkaProducer(
     bootstrap_servers=[KAFKA_BROKER],
     # Key and value are sent as bytes
@@ -29,10 +29,10 @@ try:
         for i, row in enumerate(csv_reader):
             # Row is a list of strings, join them back into a single CSV line
             csv_line = ','.join(row)
-
+            
             # Send the raw CSV line as the message value
             future = producer.send(TOPIC_NAME, value=csv_line)
-
+            
             # Optional: Log the message and wait for send confirmation
             try:
                 record_metadata = future.get(timeout=10)
@@ -40,7 +40,7 @@ try:
             except Exception as e:
                 print(f"Error sending message: {e}")
 
-            time.sleep(0.1)  # Slow down for visibility
+            time.sleep(0.1) # Slow down for visibility
 
 except FileNotFoundError:
     print(f"Error: Data file {DATA_FILE} not found.")

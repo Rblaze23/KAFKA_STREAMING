@@ -7,9 +7,10 @@ from kafka import KafkaProducer
 KAFKA_BROKER = 'localhost:9093'
 TOPIC_NAME = 'transactions-csv'
 CLEAN_DATA_FILE = 'csv_lab/data/transactions.csv'
-DIRTY_DATA_FILE = 'csv_lab/data/transactions_dirty.csv'
+DIRTY_DATA_FILE = 'transactions_dirty.csv'
 # Choose which file to stream based on the phase
-DATA_FILE = CLEAN_DATA_FILE  
+DATA_FILE = DIRTY_DATA_FILE
+
 producer = KafkaProducer(
     bootstrap_servers=[KAFKA_BROKER],
     # Key and value are sent as bytes
