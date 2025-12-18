@@ -1,3 +1,4 @@
+ 
 # Kafka Streaming — Core Hands-On Lab
 
 This repository contains the **core hands-on Kafka streaming lab** of the course.
@@ -60,3 +61,5 @@ This part builds directly on Part I and represents a more realistic streaming sc
 - Docker
 - Python 3.9+
 - Kafka running via Docker
+=======
+# KAFKA_STREAMING
